@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: demo-springcloud-nacos
+  cloud:
+    nacos:
+      discovery:
+        server-addr: mse-4e2a3680-nacos-ans.mse.aliyuncs.com:8848
+        metadata:
+          groupName: demo
+          version: 0.0.1-SNAPSHOT
