@@ -20,6 +20,7 @@
         <module>demo-springcloud-x</module>
         <module>demo-springcloud-y</module>
         <module>demo-springcloud-z</module>
+        <module>demo-springcloud-openfeign</module>
     </modules>
 
     <properties>
