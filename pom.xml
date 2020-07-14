@@ -21,6 +21,7 @@
         <module>demo-springcloud-y</module>
         <module>demo-springcloud-z</module>
         <module>demo-springcloud-openfeign</module>
+        <module>demo-springcloud-hystrix</module>
     </modules>
 
     <properties>
