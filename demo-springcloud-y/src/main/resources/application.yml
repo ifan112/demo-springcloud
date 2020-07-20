@@ -11,3 +11,9 @@ spring:
         metadata:
           group-name: demo
           version: 0.0.1-SNAPSHOT
+  zipkin:
+    base-url: http://10.10.8.167:9411
+  datasource:
+    url: jdbc:mysql://10.10.8.167:3306/gitlab
+    username: root
+    password: 123456

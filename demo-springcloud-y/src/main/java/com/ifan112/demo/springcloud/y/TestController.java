@@ -1,11 +1,21 @@
 package com.ifan112.demo.springcloud.y;
 
+import com.ifan112.demo.springcloud.y.entity.Module;
+import com.ifan112.demo.springcloud.y.repo.ModuleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 public class TestController {
+
+    @Autowired
+    private ModuleRepository moduleRepository;
 
     @GetMapping("/test")
     public String test() {
@@ -28,5 +38,16 @@ public class TestController {
         }
 
         return "Y Test2 OK";
+    }
+
+    @GetMapping("/test3")
+    public ResponseEntity<Module> test3(Integer id) {
+        Optional<Module> record = moduleRepository.findById(id);
+
+        if (record.isPresent()) {
+            return ResponseEntity.ok(record.get());
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

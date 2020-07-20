@@ -59,4 +59,19 @@ public class TestController {
 
         return respBuilder.toString();
     }
+
+    @GetMapping("/test4")
+    public String test4(Integer id) {
+        StringBuilder respBuilder = new StringBuilder();
+        respBuilder.append("X test4").append("\n");
+
+        ResponseEntity<String> respEntity = restTemplate.getForEntity("http://" + yServiceId + "/test3?id={id}", String.class, id);
+        System.out.println(respEntity.getStatusCode().toString());
+
+        respBuilder.append(respEntity.getStatusCode().toString())
+                .append("\n");
+        respBuilder.append(respEntity.getBody());
+
+        return respBuilder.toString();
+    }
 }
