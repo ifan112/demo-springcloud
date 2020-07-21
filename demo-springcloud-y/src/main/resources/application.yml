@@ -15,6 +15,6 @@ spring:
     base-url: http://10.10.8.167:9411
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.10.8.167:3306/gitlab?statementInterceptors=brave.mysql.TracingStatementInterceptor&zipkinServiceName=demo-springcloud-y&useSSL=false
+    url: jdbc:mysql://10.10.8.167:3306/gitlab?queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=demo-springcloud-y&useSSL=false
     username: root
     password: 123456
