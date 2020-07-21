@@ -1,4 +1,4 @@
-package com.ifan112.demo.springcloud.x;
+package com.ifan112.demo.springcloud.y;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-public class DemoXConfiguration {
+public class DemoYConfiguration {
 
     @Bean
     @LoadBalanced
@@ -14,8 +14,4 @@ public class DemoXConfiguration {
         return new RestTemplate();
     }
 
-    @Bean
-    public RestTemplate normalRestTemplate() {
-        return new RestTemplate();
-    }
 }

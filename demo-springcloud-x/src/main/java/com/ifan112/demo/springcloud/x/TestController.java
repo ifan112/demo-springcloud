@@ -1,5 +1,6 @@
 package com.ifan112.demo.springcloud.x;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,9 @@ public class TestController {
     private static final String yServiceId = "demo-springcloud-y";
 
     private final RestTemplate restTemplate;
+
+    @Autowired
+    private RestTemplate normalRestTemplate;
 
     public TestController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -66,6 +70,38 @@ public class TestController {
         respBuilder.append("X test4").append("\n");
 
         ResponseEntity<String> respEntity = restTemplate.getForEntity("http://" + yServiceId + "/test3?id={id}", String.class, id);
+        System.out.println(respEntity.getStatusCode().toString());
+
+        respBuilder.append(respEntity.getStatusCode().toString())
+                .append("\n");
+        respBuilder.append(respEntity.getBody());
+
+        return respBuilder.toString();
+    }
+
+    /**
+     * 测试 sleuth 将会拦截并记录普通的 restTemplate 请求
+     *
+     * 这是因为 sleuth 将所有的 RestTemplate 实例都插入了请求拦截器 TracingClientHttpRequestInterceptor
+     */
+    @GetMapping("/test5")
+    public String test5() {
+        ResponseEntity<String> respEntity = normalRestTemplate.getForEntity("http://www.baidu.com", String.class);
+
+        System.out.println(respEntity.getStatusCode());
+
+        return respEntity.getBody();
+    }
+
+    /**
+     * 测试三个服务调用
+     */
+    @GetMapping("/test6")
+    public String test6(Integer id) {
+        StringBuilder respBuilder = new StringBuilder();
+        respBuilder.append("X test6").append("\n");
+
+        ResponseEntity<String> respEntity = restTemplate.getForEntity("http://" + yServiceId + "/test4", String.class);
         System.out.println(respEntity.getStatusCode().toString());
 
         respBuilder.append(respEntity.getStatusCode().toString())
