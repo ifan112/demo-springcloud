@@ -1,0 +1,73 @@
+server:
+  port: 11111
+
+spring:
+  application:
+    name: demo-springcloud-a
+
+  cloud:
+    discovery:
+      enabled: true                                 # 是否启用服务注册发现
+    service-registry:
+      auto-registration:
+        enabled: true                               # 是否自动注册服务信息
+
+eureka:
+
+  client:
+    service-url:
+      defaultZone: http://10.10.8.167:8761/eureka
+    # 以下是非必要参数，均为默认值
+    refresh:
+      enable: true                                  # 是否刷新 eureka server 中注册的服务实例信息
+    enabled: true                                   # 是否启用 eureka client，默认 true
+    fetch-registry: true                            # 是否从 eureka server 获取服务注册信息
+    register-with-eureka: true                      # 是否将当前服务实例信息注册到 eureka server
+    registry-fetch-interval-seconds: 30             # 从 eureka server 获取服务注册信息的时间间隔，单位秒
+    region: us-east-1                               # 服务实例所在地域，默认 us-east-1。服务实例所在的 zone 为当前地域下的第一个可用区，没有则为 defaultZone
+    availability-zones:                             # region 与 zone 的映射
+      cn-hangzhou: cn-hangzhou-b,cn-hangzhou-c
+      cn-shanghai: cn-shanghai-a,cn-shanghai-b
+    prefer-same-zone-eureka: true                   # 是否优先访问相同 zone 下的 eureka server
+    backup-registry-impl:                           # 备用的服务注册实现类，通过反射加载该实例
+
+    eureka-service-url-poll-interval-seconds: 300   # 当 eureka server 信息变更时，客户端多久知道
+    instance-info-replication-interval-seconds: 30  #
+    initial-instance-info-replication-interval-seconds: 40 #
+    fetch-remote-regions-registry:                  #
+
+    eureka-server-read-timeout-seconds: 8           # 从 eureka server 读取信息时等待的超时时间，单位秒
+    eureka-server-connect-timeout-seconds: 5        # 连接 eureka server 时等待的超时时间，单位秒
+    eureka-connection-idle-timeout-seconds: 30      #
+    eureka-server-total-connections: 200            # eureka client 与 server 允许建立的最大的连接数
+    eureka-server-total-connections-per-host: 50    # eureka client 与每台 eureka server 之间允许建立的最大的连接数
+    heartbeat-executor-thread-pool-size: 2          # 发送心跳的线程池的初始化大小
+    heartbeat-executor-exponential-back-off-bound: 10
+    cache-refresh-executor-thread-pool-size: 2      # cacheRefreshExecutor
+    cache-refresh-executor-exponential-back-off-bound: 10
+    g-zip-content: true                             # 从 eureka server 获取服务注册信息时是否使用 gZip 方式压缩内容
+
+    use-dns-for-fetching-service-urls: false        # 是否使用 dns 机制来获取 eureka server 地址列表
+    eureka-server-d-n-s-name: eureka-server.com     # 当使用 dns 机制来获取 eureka server 地址列表时访问 dns 服务的根域名，最终访问域名是 txt.us-east-1.eureka-server.com
+    eureka-server-port: null                        # 当通过 dns 服务获取到 eureka server 地址后，访问时使用的端口
+    eureka-server-u-r-l-context: null               # 当通过 dns 服务获取到 eureka server 地址后，访问时使用的路径
+
+    disable-delta: false                            # 禁用增量请求，而是每次都从 eureka server 获取全量的注册信息
+    filter-only-up-instances: true                  # 只获取那些状态是 UP 的服务实例的注册信息
+    should-unregister-on-shutdown: true             # 当服务不可用时是否取消注册
+    should-enforce-registration-at-init: false      # 当服务启动时是否强制注册信息
+
+
+  instance:
+    # 服务实例相关配置信息，通常全部默认即可
+    # non-secure-port: 8088                           # 服务端口，通常定义 server.port 即可
+    # hostname:                                       # 主机名称，通常就是 IP 地址
+    # ip-address:                                     # 主机的 IP 地址
+    # prefer-ip-address: false                        # 在获取主机名称时是否优先使用 IP 地址
+    # instance-id:                                    # 服务实例唯一标识符，默认是由 hostname:application-name:port 组成
+    # secure-port-enabled: false                      # 是否启用安全端口。如果启用，之后健康检查等就会通过 https 协议访问
+
+
+
+
+
